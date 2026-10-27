@@ -1,0 +1,118 @@
+@startuml class-diagram
+scale 1.2
+!include _common.iuml
+hide circle
+hide empty members
+title Diagram Kelas Akhir: Polinema Lab Rental
+skinparam defaultFontSize 14
+
+class Main {
+  + {static} main(args : String[]) : void
+}
+
+class LabRentalApp {
+  - labRental : LabRental
+  - in : Scanner
+  - out : PrintStream
+  --
+  + LabRentalApp(labRental, in, out)
+  + run() : void
+}
+
+class LabRental {
+  - name : String
+  - equipment : Equipment[15]
+  - borrowers : Borrower[8]
+  --
+  + addEquipment(item) : boolean
+  + addBorrower(borrower) : boolean
+  + findEquipmentByName(name) : Equipment
+  + findBorrower(borrowerId) : Borrower
+  + searchByKeyword(keyword) : Equipment[]
+  + rent(borrowerId, name) : boolean
+  + giveBack(borrowerId, name) : boolean
+}
+
+class Equipment {
+  # name : String
+  # year : int
+  - available : boolean
+  - extraDays : int
+  --
+  + rent() : boolean
+  + giveBack() : void
+  + rentalDays() : int
+  + describe() : String
+  + extendRental() : void
+  + extendRental(days : int) : void
+  + getTotalRentalDays() : int
+}
+
+class Laptop {
+  - serialNumber : String
+  - brand : Brand
+  --
+  + rentalDays() : int
+  + describe() : String
+}
+
+class Projector {
+  - lumens : int
+  --
+  + rentalDays() : int
+  + describe() : String
+}
+
+class Camera {
+  - megapixels : int
+}
+
+class Brand {
+  - name : String
+  - country : String
+}
+
+class Borrower {
+  - borrowerId : String
+  - name : String
+  - rentalCount : int
+  - card : RentalCard
+  --
+  + canRent() : boolean
+  + addRental() : boolean
+  + endRental() : boolean
+}
+
+class RentalCard {
+  - number : String
+}
+
+class Rack {
+  - code : String
+  - laptops : Laptop[4]
+  --
+  + addLaptop(laptop) : boolean
+  + findBySerial(serialNumber) : Laptop
+  + countAvailable() : int
+}
+
+class Technician {
+  + handOut(borrower, laptop) : boolean
+  + takeBack(borrower, laptop) : boolean
+}
+
+Main ..> LabRentalApp
+Main ..> LabRental
+LabRentalApp --> "1" LabRental
+LabRental o-- "0..15" Equipment
+LabRental o-- "0..8" Borrower
+Equipment <|-- Laptop
+Equipment <|-- Projector
+Equipment <|-- Camera
+Laptop "*" --> "0..1" Brand
+Borrower *-- "1" RentalCard
+Rack o-- "0..4" Laptop
+Technician ..> Borrower
+Technician ..> Laptop
+@enduml
+

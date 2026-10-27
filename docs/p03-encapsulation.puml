@@ -1,0 +1,62 @@
+@startuml p03-encapsulation
+scale 1.5
+!include _common.iuml
+hide circle
+hide empty members
+title Bagian 3: Enkapsulasi
+
+class Brand {
+  - name : String
+  - country : String
+  --
+  + Brand(name : String, country : String)
+  + getName() : String
+  + getCountry() : String
+  + getInfo() : String
+}
+
+class Laptop {
+  - serialNumber : String
+  - name : String
+  - year : int
+  - available : boolean
+  --
+  + Laptop(serialNumber : String, name : String, year : int)
+  + getSerialNumber() : String
+  + getName() : String
+  + setName(name : String) : void
+  + getYear() : int
+  + setYear(year : int) : void
+  + isAvailable() : boolean
+  + rent() : boolean
+  + giveBack() : void
+}
+
+class Borrower {
+  - borrowerId : String
+  - name : String
+  - rentalCount : int
+  --
+  + Borrower(borrowerId : String, name : String)
+  + getBorrowerId() : String
+  + getName() : String
+  + setName(name : String) : void
+  + getRentalCount() : int
+  + canRent() : boolean
+  + addRental() : boolean
+  + endRental() : boolean
+}
+
+note right of Laptop
+  serialNumber: read-only
+  available: berubah hanya
+  lewat rent dan giveBack
+end note
+
+note right of Borrower
+  borrowerId dan rentalCount: read-only
+  canRent: dihitung, bukan disimpan
+  rentalCount selalu 0..2
+end note
+@enduml
+

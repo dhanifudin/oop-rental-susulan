@@ -1,0 +1,65 @@
+@startuml p07-override-overload
+scale 1.5
+!include _common.iuml
+hide circle
+hide empty members
+title Bagian 6: Overriding dan Overloading
+left to right direction
+
+class Equipment {
+  # name : String
+  # year : int
+  - available : boolean
+  - extraDays : int
+  --
+  + Equipment(name : String, year : int)
+  + getName() : String
+  + setName(name : String) : void
+  + getYear() : int
+  + setYear(year : int) : void
+  + isAvailable() : boolean
+  + rent() : boolean
+  + giveBack() : void
+  + rentalDays() : int
+  + describe() : String
+  + toString() : String
+  + extendRental() : void
+  + extendRental(days : int) : void
+  + getTotalRentalDays() : int
+}
+
+class Laptop {
+  - serialNumber : String
+  - brand : Brand
+  --
+  + Laptop(serialNumber : String, name : String, year : int)
+  + Laptop(serialNumber : String, name : String, year : int, brand : Brand)
+  + getSerialNumber() : String
+  + getBrand() : Brand
+  + setBrand(brand : Brand) : void
+  + rentalDays() : int
+  + describe() : String
+}
+
+class Projector {
+  - lumens : int
+  --
+  + Projector(name : String, year : int, lumens : int)
+  + getLumens() : int
+  + rentalDays() : int
+  + describe() : String
+}
+
+class Camera {
+  - megapixels : int
+  --
+  + Camera(name : String, year : int, megapixels : int)
+  + Camera(name : String, year : int)
+  + getMegapixels() : int
+}
+
+Equipment <|-- Laptop
+Equipment <|-- Projector
+Equipment <|-- Camera
+@enduml
+

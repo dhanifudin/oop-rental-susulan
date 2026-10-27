@@ -1,0 +1,52 @@
+@startuml p06-inheritance
+scale 1.5
+!include _common.iuml
+hide circle
+hide empty members
+title Bagian 5: Inheritance
+left to right direction
+
+class Equipment <<buat kelas ini>> {
+  # name : String
+  # year : int
+  - available : boolean
+  --
+  + Equipment(name : String, year : int)
+  + getName() : String
+  + setName(name : String) : void
+  + getYear() : int
+  + setYear(year : int) : void
+  + isAvailable() : boolean
+  + rent() : boolean
+  + giveBack() : void
+}
+
+class Laptop {
+  - serialNumber : String
+  - brand : Brand
+  --
+  + Laptop(serialNumber : String, name : String, year : int)
+  + getSerialNumber() : String
+  + getBrand() : Brand
+  + setBrand(brand : Brand) : void
+}
+
+class Projector <<buat kelas ini>> {
+  - lumens : int
+  --
+  + Projector(name : String, year : int, lumens : int)
+  + getLumens() : int
+}
+
+class Camera <<buat kelas ini>> {
+  - megapixels : int
+  --
+  + Camera(name : String, year : int, megapixels : int)
+  + getMegapixels() : int
+}
+
+Equipment <|-- Laptop
+Equipment <|-- Projector
+Equipment <|-- Camera
+@enduml
+

@@ -1,0 +1,33 @@
+@startuml p02-brand-laptop
+scale 1.5
+!include _common.iuml
+hide circle
+hide empty members
+title Bagian 2: Brand dan Laptop
+
+class Brand {
+  + name : String
+  + country : String
+  --
+  + Brand(name : String, country : String)
+  + getName() : String
+  + getCountry() : String
+  + getInfo() : String
+}
+
+class Laptop {
+  + serialNumber : String
+  + name : String
+  + year : int
+  + available : boolean
+  --
+  + Laptop(serialNumber : String, name : String, year : int)
+  + getSerialNumber() : String
+  + getName() : String
+  + getYear() : int
+  + isAvailable() : boolean
+  + rent() : boolean
+  + giveBack() : void
+}
+@enduml
+

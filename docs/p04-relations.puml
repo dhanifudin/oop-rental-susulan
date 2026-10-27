@@ -1,0 +1,87 @@
+@startuml p04-relations
+scale 1.5
+!include _common.iuml
+hide circle
+hide empty members
+title Bagian 4: Relasi Class
+
+class Brand {
+  - name : String
+  - country : String
+  --
+  + Brand(name : String, country : String)
+  + getName() : String
+  + getCountry() : String
+  + getInfo() : String
+}
+
+class Laptop {
+  - serialNumber : String
+  - name : String
+  - year : int
+  - available : boolean
+  - brand : Brand
+  --
+  + Laptop(serialNumber : String, name : String, year : int)
+  + getSerialNumber() : String
+  + getName() : String
+  + setName(name : String) : void
+  + getYear() : int
+  + setYear(year : int) : void
+  + isAvailable() : boolean
+  + rent() : boolean
+  + giveBack() : void
+  + getBrand() : Brand
+  + setBrand(brand : Brand) : void
+}
+
+class Borrower {
+  - borrowerId : String
+  - name : String
+  - rentalCount : int
+  - card : RentalCard
+  --
+  + Borrower(borrowerId : String, name : String)
+  + getBorrowerId() : String
+  + getName() : String
+  + setName(name : String) : void
+  + getRentalCount() : int
+  + getCard() : RentalCard
+  + canRent() : boolean
+  + addRental() : boolean
+  + endRental() : boolean
+}
+
+class RentalCard <<buat kelas ini>> {
+  - number : String
+  --
+  + RentalCard(number : String)
+  + getCardNumber() : String
+}
+
+class Rack <<buat kelas ini>> {
+  - code : String
+  - laptops : Laptop[4]
+  - count : int
+  --
+  + Rack(code : String)
+  + getCode() : String
+  + getLaptopCount() : int
+  + addLaptop(laptop : Laptop) : boolean
+  + findBySerial(serialNumber : String) : Laptop
+  + countAvailable() : int
+}
+
+class Technician <<buat kelas ini>> {
+  --
+  + handOut(borrower : Borrower, laptop : Laptop) : boolean
+  + takeBack(borrower : Borrower, laptop : Laptop) : boolean
+}
+
+Laptop "*" --> "0..1" Brand : asosiasi
+Rack o-- "0..4" Laptop : agregasi
+Borrower *-- "1" RentalCard : komposisi\n(dibuat di constructor)
+Technician ..> Borrower : dependensi
+Technician ..> Laptop : dependensi
+@enduml
+

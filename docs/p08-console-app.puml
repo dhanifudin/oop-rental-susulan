@@ -1,0 +1,64 @@
+@startuml p08-console-app
+scale 1.5
+!include _common.iuml
+hide circle
+hide empty members
+title Bagian 7: Aplikasi Konsol
+
+class Main {
+  + {static} main(args : String[]) : void
+}
+
+class LabRentalApp <<buat kelas ini>> {
+  - labRental : LabRental
+  - in : Scanner
+  - out : PrintStream
+  --
+  + LabRentalApp(labRental : LabRental, in : Scanner, out : PrintStream)
+  + run() : void
+}
+
+class LabRental <<buat kelas ini>> {
+  - name : String
+  - equipment : Equipment[15]
+  - equipmentCount : int
+  - borrowers : Borrower[8]
+  - borrowerCount : int
+  --
+  + LabRental(name : String)
+  + getName() : String
+  + addEquipment(item : Equipment) : boolean
+  + addBorrower(borrower : Borrower) : boolean
+  + getEquipment() : Equipment[]
+  + getBorrowers() : Borrower[]
+  + findEquipmentByName(name : String) : Equipment
+  + findBorrower(borrowerId : String) : Borrower
+  + searchByKeyword(keyword : String) : Equipment[]
+  + rent(borrowerId : String, name : String) : boolean
+  + giveBack(borrowerId : String, name : String) : boolean
+}
+
+class Equipment
+class Laptop
+class Projector
+class Camera
+class Borrower
+
+note bottom of Equipment
+  Isi lengkap: lihat diagram Bagian 6
+end note
+
+Main ..> LabRental : dependensi
+Main ..> LabRentalApp : dependensi
+LabRentalApp --> "1" LabRental : asosiasi
+LabRental o-- "0..15" Equipment : agregasi
+LabRental o-- "0..8" Borrower : agregasi
+LabRentalApp ..> Laptop : dependensi
+LabRentalApp ..> Projector : dependensi
+LabRentalApp ..> Camera : dependensi
+LabRentalApp ..> Borrower : dependensi
+Equipment <|-- Laptop
+Equipment <|-- Projector
+Equipment <|-- Camera
+@enduml
+
